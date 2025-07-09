@@ -1,0 +1,50 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:latest
+    container_name: postgres-server
+    restart: unless-stopped
+    environment:
+      POSTGRES_USER: raspirosdocker
+      POSTGRES_PASSWORD: raspirosdocker48
+      POSTGRES_DB: db_data
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+  
+  emqx:
+    image: emqx/emqx:5.7.0
+    container_name: emqx-broker
+    restart: unless-stopped
+    ports:
+      - "1883:1883"
+      - "8883:8883"
+      - "8093:8093"
+      - "18083:18083"
+    volumes:
+      - emqx_data:/opt/emqx/data
+      - emqx_log:/opt/emqx/log
+  
+  redis:
+    image: redis:latest
+    container_name: redis-cache
+    restart: unless-stopped
+    ports:
+      - "6379:6379"
+    volumes:
+      - redis_data:/data
+
+  adminer:
+    image: adminer
+    container_name: adminer-ui
+    restart: unless-stopped
+    ports:
+      - "8080:8080"
+
+volumes:
+  postgres_data:
+  emqx_data:
+  emqx_log:
+  redis_data:
