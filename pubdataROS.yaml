@@ -1,0 +1,27 @@
+/**/*:
+  ros__parameters:
+    broker:
+      host: 192.168.7.126
+      port: 1883
+    bridge:
+      ros2mqtt:
+        ros_topics: 
+          - /ultrasonic/range
+          - /agv1/movement
+        /ultrasonic/range:
+          mqtt_topic: sensor/ultrasonic
+          ros_type: sensor_msgs/msg/Range
+          # inject_timestamp: true
+        /agv1/movement:
+          mqtt_topic: agv1/move
+          ros_type: std_msgs/msg/String
+      mqtt2ros:
+        mqtt_topics: 
+          - sensor/ultrasonic
+          - agv1/move
+        sensor/ultrasonic:
+          ros_topic: /get/mqtt
+          ros_type: sensor_msgs/msg/Range
+        agv1/move:
+          ros_topic: /get/agv/mqtt
+          ros_type: std_msgs/msg/String

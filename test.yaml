@@ -1,0 +1,7 @@
+mqtt_client:
+  ros__parameters:
+    bridge:
+      ros_to_mqtt:
+        - ros_topic: "/tes_ros_ke_mqtt"
+          mqtt_topic: "hasil/tes_ros"
+          primitive: true
